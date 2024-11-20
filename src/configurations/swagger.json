@@ -1,8 +1,14 @@
 {
   "swagger": {
-    "title": "Автоматизация повесток и вызовов API",
     "description": "Данный проект создан для того чтобы автоматизировать отправку юридических документов гражданам Казахстана.",
-    "version": "0.0.1",
-    "path": "api"
+    "path": "api",
+    "servers": [
+      {
+        "link": "http://localhost:8080",
+        "title": "Local Development Server"
+      }
+    ],
+    "title": "Автоматизация повесток и вызовов API",
+    "version": "0.0.1"
   }
 }
