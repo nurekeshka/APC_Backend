@@ -20,9 +20,9 @@ export class AuthController {
     return this.authService.signIn(dto.email, dto.password);
   }
 
-  @UseGuards(AuthGuard)
   @Get('profile')
-  getProfile(@Request() req) {
-    return req.user;
+  @UseGuards(AuthGuard)
+  getProfile(@Request() request: any) {
+    return request.user;
   }
 }
