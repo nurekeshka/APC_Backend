@@ -56,16 +56,29 @@ export class UsersController {
   @Get()
   @ApiResponse({
     status: 200,
-    example: [
-      {
-        name: 'John',
-        surname: 'Doe',
-        email: 'example@api.com',
-        sex: 'male',
-        role: 'employee',
-        region: 'New York',
+    example: {
+      data: [
+        {
+          name: 'John',
+          surname: 'Doe',
+          email: 'example@api.com',
+          sex: 'male',
+          role: 'employee',
+          region: 'New York',
+        },
+      ],
+      meta: {
+        itemsPerPage: 20,
+        totalItems: 3,
+        currentPage: 1,
+        totalPages: 1,
+        sortBy: [['email', 'ASC']],
       },
-    ],
+      links: {
+        current:
+          'http://localhost:8080/users/?page=1&limit=20&sortBy=email:ASC',
+      },
+    },
   })
   findAll(@Paginate() query: PaginateQuery) {
     return this.usersService.findAll(query);
