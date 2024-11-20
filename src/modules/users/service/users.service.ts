@@ -38,6 +38,13 @@ export class UsersService {
     return this.usersRepository.findOneBy({ id });
   }
 
+  findOneForAuth(email: string) {
+    return this.usersRepository.findOne({
+      where: { email },
+      select: ['email', 'password'],
+    });
+  }
+
   update(id: string, dto: UpdateUserDTO) {
     return this.usersRepository.update(id, dto);
   }
