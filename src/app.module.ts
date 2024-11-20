@@ -6,7 +6,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 
 import { entities, modules } from './modules';
-import { DocumentsModule } from './modules/documents/documents.module';
 
 export type DatabaseTypeOptions = 'postgres' | 'sqlite';
 
@@ -45,7 +44,6 @@ export type DatabaseTypeOptions = 'postgres' | 'sqlite';
       },
     }),
     ...modules,
-    DocumentsModule,
   ],
 })
 export class AppModule {}
