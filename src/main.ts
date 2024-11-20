@@ -16,11 +16,17 @@ async function bootstrap() {
     }),
   );
 
-  const config = new DocumentBuilder()
+  const builder = new DocumentBuilder()
     .setTitle(swagger.title)
     .setDescription(swagger.description)
     .setVersion(swagger.version)
-    .build();
+    .addBearerAuth();
+
+  for (const server of swagger.servers) {
+    builder.addServer(server.link, server.title);
+  }
+
+  const config = builder.build();
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup(swagger.path, app, document);

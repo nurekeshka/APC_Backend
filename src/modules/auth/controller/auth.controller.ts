@@ -6,7 +6,7 @@ import {
   Request,
   UseGuards,
 } from '@nestjs/common';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { SignInDTO } from '../dto/sign-in.dto';
 import { AuthGuard } from '../guards/auth.guard';
@@ -37,6 +37,7 @@ export class AuthController {
 
   @Get('profile')
   @UseGuards(AuthGuard)
+  @ApiBearerAuth()
   @ApiResponse({
     status: 200,
     example: {
