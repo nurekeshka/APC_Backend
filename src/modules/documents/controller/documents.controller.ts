@@ -7,10 +7,13 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { DocumentsService } from '../service/documents.service';
+import { ApiTags } from '@nestjs/swagger';
+
 import { CreateDocumentDTO } from '../dto/create-document.dto';
 import { UpdateDocumentDTO } from '../dto/update-document.dto';
+import { DocumentsService } from '../service/documents.service';
 
+@ApiTags('Documents Controller')
 @Controller('documents')
 export class DocumentsController {
   constructor(private readonly documentsService: DocumentsService) {}
