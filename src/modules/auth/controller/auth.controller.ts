@@ -20,14 +20,12 @@ export class AuthController {
   @Post('login')
   @ApiResponse({
     status: 201,
-    description: 'Returns Access Token',
     example: {
       access_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
     },
   })
   @ApiResponse({
     status: 401,
-    description: 'Email and Password mismatch',
     example: {
       message: 'Unauthorized',
       statusCode: 401,
@@ -41,7 +39,6 @@ export class AuthController {
   @UseGuards(AuthGuard)
   @ApiResponse({
     status: 200,
-    description: 'Returns Profile',
     example: {
       email: 'example@api.com',
       iat: 1732127822,
@@ -50,7 +47,6 @@ export class AuthController {
   })
   @ApiResponse({
     status: 401,
-    description: 'Email and Password mismatch',
     example: {
       message: 'Unauthorized',
       statusCode: 401,
