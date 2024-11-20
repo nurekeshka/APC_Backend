@@ -29,10 +29,5 @@
     "defaultLimit": 0,
     "maxLimit": 0,
     "nullSort": "first"
-  },
-  "cors": {
-    "origin": "http://localhost:3000",
-    "methods": ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
-    "credentials": true
   }
 }
