@@ -17,7 +17,7 @@ import { AuthService } from '../service/auth.service';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post('login')
+  @Post('sign-in')
   @ApiResponse({
     status: 201,
     example: {
