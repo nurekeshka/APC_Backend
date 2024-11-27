@@ -1,126 +1,17 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Paginate, PaginateQuery } from 'nestjs-paginate';
+import { Controller, Inject } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
+import { OperationsController } from '../../../common/operations/controller/operations.controller';
+import { OperationsDtos } from '../../../common/operations/decorators/operations.dtos.decorator';
 import { CreateUserDTO } from '../dto/create-user.dto';
 import { UpdateUserDTO } from '../dto/update-user.dto';
+import { User } from '../entities/user.entity';
 import { UsersService } from '../service/users.service';
 
 @ApiTags('Users Controller')
 @Controller('users')
-export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
-
-  @Post()
-  @ApiResponse({
-    status: 201,
-    example: {
-      name: 'John',
-      surname: 'Doe',
-      email: 'example@api.com',
-      sex: 'male',
-      role: 'employee',
-      region: 'New York',
-    },
-  })
-  @ApiResponse({
-    status: 400,
-    example: {
-      message: [
-        'email must be an email',
-        'name should not be empty',
-        'name must be a string',
-        'surname should not be empty',
-        'surname must be a string',
-        'sex must be one of the following values: male, female',
-        'role must be one of the following values: employee, analytics, moderator',
-        'region must be a string',
-        'password is not strong enough',
-      ],
-      error: 'Bad Request',
-      statusCode: 400,
-    },
-  })
-  create(@Body() dto: CreateUserDTO) {
-    return this.usersService.create(dto);
-  }
-
-  @Get()
-  @ApiResponse({
-    status: 200,
-    example: {
-      data: [
-        {
-          name: 'John',
-          surname: 'Doe',
-          email: 'example@api.com',
-          sex: 'male',
-          role: 'employee',
-          region: 'New York',
-        },
-      ],
-      meta: {
-        itemsPerPage: 20,
-        totalItems: 3,
-        currentPage: 1,
-        totalPages: 1,
-        sortBy: [['email', 'ASC']],
-      },
-      links: {
-        current:
-          'http://localhost:8080/users/?page=1&limit=20&sortBy=email:ASC',
-      },
-    },
-  })
-  findAll(@Paginate() query: PaginateQuery) {
-    return this.usersService.findAll(query);
-  }
-
-  @Get(':id')
-  @ApiResponse({
-    status: 200,
-    example: {
-      name: 'John',
-      surname: 'Doe',
-      email: 'example@api.com',
-      sex: 'male',
-      role: 'employee',
-      region: 'New York',
-    },
-  })
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(id);
-  }
-
-  @Patch(':id')
-  @ApiResponse({
-    status: 200,
-    example: {
-      raw: [],
-      affected: 1,
-    },
-  })
-  update(@Param('id') id: string, @Body() dto: UpdateUserDTO) {
-    return this.usersService.update(id, dto);
-  }
-
-  @Delete(':id')
-  @ApiResponse({
-    status: 200,
-    example: {
-      raw: [],
-      affected: 1,
-    },
-  })
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(id);
-  }
+@OperationsDtos({ create: CreateUserDTO, update: UpdateUserDTO })
+export class UsersController extends OperationsController<User, CreateUserDTO> {
+  @Inject(UsersService)
+  service: UsersService;
 }

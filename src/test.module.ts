@@ -35,4 +35,4 @@ import { entities } from './modules';
   providers: [PaginationService],
   exports: [PaginationService],
 })
-export class TestingAppModule {}
+export class TestAppModule {}

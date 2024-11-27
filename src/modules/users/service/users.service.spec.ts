@@ -1,24 +1,6 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { TypeOrmModule } from '@nestjs/typeorm';
-
-import { TestingAppModule } from '../../../testing.module';
-import { UserEntities } from '../entities';
+import { OperationsServiceTestsFactory } from '../../../common/operations/service/operations.service.tests';
+import { User } from '../entities/user.entity';
 
 import { UsersService } from './users.service';
 
-describe('UsersService', () => {
-  let service: UsersService;
-
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      imports: [TestingAppModule, TypeOrmModule.forFeature(UserEntities)],
-      providers: [UsersService],
-    }).compile();
-
-    service = module.get<UsersService>(UsersService);
-  });
-
-  it('should be defined', () => {
-    expect(service).toBeDefined();
-  });
-});
+OperationsServiceTestsFactory(User, UsersService);
