@@ -1,0 +1,31 @@
+services:
+  nestjs-app:
+    build: .
+    container_name: nestjs-app
+    ports:
+      - '8080:8080'
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - postgres
+    networks:
+      - nest-network
+
+  postgres:
+    image: postgres:latest
+    container_name: nestjs-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: aitu
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - nest-network
+
+networks:
+  nest-network:
+    driver: bridge
+
+volumes:
+  postgres-data:
