@@ -18,6 +18,8 @@ import {
 } from '../decorators/operations.dtos.decorator';
 import { OperationsService } from '../service/operations.service';
 
+// Этот класс является заготовкой для базовых CRUD запросов
+
 @Controller()
 export abstract class OperationsController<T, D extends object>
   implements OnModuleInit

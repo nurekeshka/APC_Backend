@@ -8,6 +8,8 @@ import { OperationsService } from '../service/operations.service';
 
 import { OperationsController } from './operations.controller';
 
+// Это автоматически генерирующиеся тесты для контроллеров которые наследуют OperationsController
+
 export const OperationsControllerTestsFactory = <T extends Type>(
   ControllerClass: Type<OperationsController<InstanceType<T>, any>>,
   ServiceClass: Type<OperationsService<InstanceType<T>>>,

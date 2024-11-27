@@ -9,6 +9,10 @@ import { entities, modules } from './modules';
 
 export type DatabaseTypeOptions = 'postgres' | 'sqlite';
 
+// https://docs.nestjs.com/modules
+// https://docs.nestjs.com/recipes/sql-typeorm
+// https://docs.nestjs.com/techniques/configuration
+
 @Module({
   imports: [
     ConfigModule.forRoot({

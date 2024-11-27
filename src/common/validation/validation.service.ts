@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { plainToInstance } from 'class-transformer';
 import { validate } from 'class-validator';
 
+// Это сервис для валидации чтобы после вручную валидировать на контроллерах
+
 @Injectable()
 export class ValidationService {
   async validate(clazz: any, body: any) {

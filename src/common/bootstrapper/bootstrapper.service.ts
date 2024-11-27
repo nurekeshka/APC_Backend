@@ -4,6 +4,9 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { swagger } from '../../configurations/swagger.json';
 import { ErrorsFilter } from '../../middlewares/filters/errors.filter';
 
+// Этот класс нужен для того чтобы настроить приложение
+// Он используется в main.ts и в E2E тестах.
+
 export class Bootstrapper {
   static setup(app: INestApplication) {
     this.setupGlobalFilters(app);

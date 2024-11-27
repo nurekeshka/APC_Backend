@@ -7,5 +7,7 @@ export interface OperationsEntityParams {
 
 export const OperationsEntityParamsTitle = 'operations-entity';
 
+// Это декоратор с помощью которого я передаю entity по которым он достает репозиторий
+
 export const OperationsEntity = (params: OperationsEntityParams) =>
   SetMetadata(OperationsEntityParamsTitle, params);

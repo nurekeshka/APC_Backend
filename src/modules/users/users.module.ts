@@ -8,6 +8,8 @@ import { UsersController } from './controller/users.controller';
 import { UserEntities } from './entities';
 import { UsersService } from './service/users.service';
 
+// https://docs.nestjs.com/modules
+
 @Module({
   imports: [TypeOrmModule.forFeature(UserEntities)],
   controllers: [UsersController],

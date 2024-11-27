@@ -7,6 +7,8 @@ import { PaginationServiceMockFactory } from '../../../../test/utils/pagination.
 import { PaginationService } from '../../pagination';
 import { OperationsService } from '../service/operations.service';
 
+// Это автоматически генерирующиеся тесты для сервисов которые наследуют OperationsService
+
 export const OperationsServiceTestsFactory = <T extends Type>(
   entity: T,
   ServiceClass: Type<OperationsService<InstanceType<T>>>,

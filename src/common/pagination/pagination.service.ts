@@ -23,6 +23,8 @@ export interface DefaultPagination
     | 'nullSort'
   > {}
 
+// Этот сервис используется для пагинации написанный на основе библиотеки nestjs-paginate
+
 @Injectable()
 export class PaginationService {
   private readonly config: DefaultPagination;

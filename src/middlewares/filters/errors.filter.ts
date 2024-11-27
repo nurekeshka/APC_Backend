@@ -6,6 +6,9 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 
+// Это фильтр для ошибок, то-есть каждый раз когда в приложении происходит ошибка она приходит сюда
+// https://docs.nestjs.com/exception-filters
+
 @Catch()
 export class ErrorsFilter implements ExceptionFilter {
   catch(exception: any, host: ArgumentsHost) {

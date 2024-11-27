@@ -9,6 +9,8 @@ import { OperationsDtosParams } from '../decorators/operations.dtos.decorator';
 
 import { OperationsController } from './operations.controller';
 
+// Это автоматически генерирующиеся E2E тесты для контроллеров которые наследуют OperationsController
+
 export const OperationsE2ETestsFactory = <T extends Type, C extends object>(
   ControllerClass: Type<OperationsController<InstanceType<T>, C>>,
   Module: Type<object>,

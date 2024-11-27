@@ -8,6 +8,9 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 
+// Это AuthGuard с помощью которого можно будет фильтровать запросы которые требуют авторизации
+// https://docs.nestjs.com/guards
+
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(

@@ -10,6 +10,8 @@ import {
   OperationsEntityParamsTitle,
 } from '../decorators/operations.entity.decorator';
 
+// Этот класс является заготовкой для базовых CRUD действий с моделями
+
 @Injectable()
 export abstract class OperationsService<T> implements OnModuleInit {
   abstract sortableColumns: Column<T>[];
