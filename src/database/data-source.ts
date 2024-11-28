@@ -1,6 +1,6 @@
 import { DataSource } from 'typeorm';
 
-import { database } from '../configurations/production.json';
+import { database } from '../configurations/production.example.json';
 import { entities } from '../modules';
 
 export const AppDataSource = new DataSource({
