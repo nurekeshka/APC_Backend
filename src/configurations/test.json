@@ -18,6 +18,9 @@
     "type": "sqlite",
     "username": null
   },
+  "redis": {
+    "mock": true
+  },
   "pagination": {
     "defaultLimit": 0,
     "ignoreSearchByInQueryParam": false,

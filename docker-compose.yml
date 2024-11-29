@@ -23,6 +23,14 @@ services:
     networks:
       - nest-network
 
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - '6379:6379'
+    networks:
+      - nest-network
+
 networks:
   nest-network:
     driver: bridge
