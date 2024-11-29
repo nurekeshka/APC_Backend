@@ -18,6 +18,11 @@
     "type": "postgres",
     "username": "postgres"
   },
+  "redis": {
+    "mock": false,
+    "host": "redis",
+    "port": 6379
+  },
   "pagination": {
     "defaultLimit": 0,
     "ignoreSearchByInQueryParam": false,

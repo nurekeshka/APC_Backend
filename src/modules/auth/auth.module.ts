@@ -13,12 +13,12 @@ import { AuthService } from './service/auth.service';
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (configService: ConfigService) => {
+      useFactory: (config: ConfigService) => {
         return {
           global: true,
-          secret: configService.get<string>('auth.jwt.secret'),
+          secret: config.get<string>('auth.jwt.secret'),
           signOptions: {
-            expiresIn: configService.get<string>('auth.jwt.expiresIn'),
+            expiresIn: config.get<string>('auth.jwt.expiresIn'),
           },
         };
       },

@@ -18,6 +18,9 @@
     "type": "postgres",
     "username": "postgres"
   },
+  "redis": {
+    "mock": true
+  },
   "pagination": {
     "defaultLimit": 0,
     "ignoreSearchByInQueryParam": false,
