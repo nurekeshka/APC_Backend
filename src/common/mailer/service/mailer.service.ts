@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { MailerService as NestMailerService } from '@nestjs-modules/mailer';
+import { RedisService } from '../../../common/redis/redis.service';
 
 @Injectable()
 export class MailerService {
-  private codes = new Map<string, string>();
-
-  constructor(private readonly mailerService: NestMailerService) {}
+  constructor(
+    private readonly mailerService: NestMailerService,
+    private readonly redisService: RedisService
+  ) {}
 
   generateCode(): string {
     return Math.floor(100000 + Math.random() * 900000).toString();
@@ -14,7 +16,7 @@ export class MailerService {
   async sendVerificationCode(email: string): Promise<string> {
     const code = this.generateCode();
 
-    this.codes.set(email, code);
+    await this.redisService.set(`verification_code_${email}`, code, 300);
 
     await this.mailerService.sendMail({
       to: email,
@@ -27,11 +29,7 @@ export class MailerService {
   }
 
   async verifyCode(email: string, code: string): Promise<boolean> {
-    const storedCode = this.codes.get(email);
-    if (!storedCode) {
-      return false;
-    }
-    
+    const storedCode = await this.redisService.get(`verification_code_${email}`);
     return storedCode === code;
   }
 }

@@ -7,7 +7,7 @@ import {
   IsStrongPassword,
 } from 'class-validator';
 
-import { RoleEnum, SexEnum } from '../enums/users.enums';
+import { RoleEnum, SexEnum } from '../enums/users.enums'; 
 
 export class CreateUserDTO {
   @ApiProperty({ example: 'example@api.com' })

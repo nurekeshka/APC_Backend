@@ -32,5 +32,17 @@
     "paginationType": "limit",
     "relativePath": false,
     "withDeleted": false
+  },
+  "smtp": {
+    "host": "smtp.gmail.com",
+    "port": 587,
+    "secure": false,
+    "auth": {
+      "user": "eserikova22@gmail.com",
+      "pass": "zokthaldgnrnfjtw"
+    },
+    "defaults": {
+      "from": "\"Verification Service\" <no-reply@example.com>"
+    }
   }
 }
