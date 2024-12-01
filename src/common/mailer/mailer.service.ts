@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { compile } from 'handlebars';
 import { Transporter } from 'nodemailer';
 
@@ -15,6 +15,7 @@ import {
 @Injectable()
 export class MailerService {
   @Inject(TransporterService) private readonly transporter: Transporter;
+  private readonly logger = new Logger(MailerService.name);
 
   private readonly templates: MailerTemplates;
 
@@ -37,6 +38,7 @@ export class MailerService {
     subject: string,
     args: TemplateParams<T>,
   ) {
+    this.logger.log(`Posting ${to} with "${subject}" using "${template}"`);
     const builder = this.templates[template];
     await this.transporter.sendMail({
       to,

@@ -21,6 +21,7 @@
   "mailer": {
     "from": "",
     "host": "smtp.gmail.com",
+    "mock": true,
     "password": "",
     "port": 587,
     "secure": true,

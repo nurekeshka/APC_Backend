@@ -6,6 +6,7 @@ import {
 import { JwtService } from '@nestjs/jwt';
 
 import { MailerService } from '../../../common/mailer';
+import { Template } from '../../../common/mailer/mailer.types';
 import { RedisService } from '../../../common/redis';
 import { UsersService } from '../../users/service/users.service';
 import { SignUpDto } from '../dto/sign-up.dto';
@@ -46,15 +47,15 @@ export class AuthService {
 
     const code = '123456';
 
-    // await this.mailer.dispatch(
-    //   Template.Verification,
-    //   dto.email,
-    //   'Your verification code',
-    //   {
-    //     name: dto.name,
-    //     link: `http://localhost:8080/auth/verify?code=${code}`,
-    //   },
-    // );
+    await this.mailer.dispatch(
+      Template.Verification,
+      dto.email,
+      'Your verification code',
+      {
+        name: dto.name,
+        link: `http://localhost:8080/auth/verify?code=${code}`,
+      },
+    );
 
     await this.redis.set(
       `verification_${dto.email}`,
