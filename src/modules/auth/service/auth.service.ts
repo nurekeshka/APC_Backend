@@ -13,6 +13,8 @@ import { UsersService } from '../../users/service/users.service';
 import { SignUpDto } from '../dto/sign-up.dto';
 import { VerifyDto } from '../dto/verify.dto';
 
+const prefix = 'verification_';
+
 @Injectable()
 export class AuthService {
   constructor(
@@ -46,13 +48,13 @@ export class AuthService {
         HttpStatus.BAD_REQUEST,
       );
 
-    if (await this.redis.exists(`verification_${dto.email}`))
+    if (await this.redis.exists(`${prefix}${dto.email}`))
       throw new HttpException(
         { message: 'Verification is already in process' },
         HttpStatus.BAD_REQUEST,
       );
 
-    const code = '123456';
+    const code = Math.floor(Math.random() * 1_000_000) - 1;
 
     await this.mailer.dispatch(
       Template.Verification,
@@ -65,7 +67,7 @@ export class AuthService {
     );
 
     await this.redis.set(
-      `verification_${dto.email}`,
+      `${prefix}${dto.email}`,
       JSON.stringify({ user: dto, code }),
     );
 
@@ -73,27 +75,22 @@ export class AuthService {
   }
 
   async verify(dto: VerifyDto) {
-    if (!(await this.redis.exists(`verification_${dto.email}`)))
+    if (!(await this.redis.exists(`${prefix}${dto.email}`)))
       throw new HttpException(
         { message: 'No active verification for that user' },
         HttpStatus.BAD_REQUEST,
       );
 
     const data = JSON.parse(
-      (await this.redis.get(`verification_${dto.email}`)) as string,
-    );
-    const user = data.user as SignUpDto;
-    const code = data.code as string;
+      (await this.redis.get(`${prefix}${dto.email}`)).toString(),
+    ) as { user: SignUpDto; code: string };
 
-    console.log(user);
-    console.log(code);
-
-    if (code !== dto.code)
+    if (data.code !== dto.code)
       throw new HttpException(
         { message: "Validation code doesn't match" },
         HttpStatus.BAD_REQUEST,
       );
 
-    return await this.usersService.create(user);
+    return await this.usersService.create(data.user);
   }
 }
