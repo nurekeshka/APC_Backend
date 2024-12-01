@@ -1,4 +1,4 @@
-import { INestApplication, ValidationPipe } from '@nestjs/common';
+import { INestApplication, Logger, ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import { swagger } from '../../configurations/swagger.json';
@@ -6,8 +6,16 @@ import { HttpExceptionFilter } from '../../middlewares/filters/http-exception.fi
 
 export class Bootstrapper {
   static setup(app: INestApplication) {
+    this.setupLogger();
     this.setupGlobalPipes(app);
     this.setupSwagger(app);
+  }
+
+  static setupLogger() {
+    const logger = new Logger(Bootstrapper.name);
+    logger.log(
+      `Bootstrapping in ${process.env.NODE_ENV ?? 'development'} mode`,
+    );
   }
 
   static setupGlobalPipes(app: INestApplication) {

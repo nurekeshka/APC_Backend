@@ -14,7 +14,7 @@ export type DatabaseTypeOptions = 'postgres' | 'sqlite';
     ConfigModule.forRoot({
       load: [
         () => {
-          const env = process.env.NODE_ENV || 'development';
+          const env = process.env.NODE_ENV ?? 'development';
           const configurationPath = path.resolve(
             __dirname,
             `../src/configurations/${env}.json`,
