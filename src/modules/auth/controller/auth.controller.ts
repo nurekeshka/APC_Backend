@@ -8,18 +8,24 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
-import { SignInDTO } from '../dto/sign-in.dto';
+import { SignInDto } from '../dto/sign-in.dto';
+import { SignUpDto } from '../dto/sign-up.dto';
 import { AuthGuard } from '../guards/auth.guard';
 import { AuthService } from '../service/auth.service';
 
 @ApiTags('Auth Controller')
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly auth: AuthService) {}
 
   @Post('sign-in')
-  signIn(@Body() dto: SignInDTO) {
-    return this.authService.signIn(dto.email, dto.password);
+  signIn(@Body() dto: SignInDto) {
+    return this.auth.signIn(dto.email, dto.password);
+  }
+
+  @Post('sign-up')
+  signUp(@Body() dto: SignUpDto) {
+    return this.auth.signUp(dto);
   }
 
   @Get('profile')

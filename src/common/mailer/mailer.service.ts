@@ -19,11 +19,16 @@ export class MailerService {
   private readonly templates: MailerTemplates;
 
   constructor() {
-    for (const template of Object.keys(Template)) {
-      const filepath = path.join(__dirname, 'templates', template);
+    const templates = {};
+
+    for (const template of Object.values(Template)) {
+      const filename = `${template}.hbs`;
+      const filepath = path.join(__dirname, 'templates', filename);
       const source = fs.readFileSync(filepath, 'utf-8');
-      this.templates[template] = compile(source);
+      templates[template] = compile(source);
     }
+
+    this.templates = templates as never;
   }
 
   async dispatch<T extends Template>(

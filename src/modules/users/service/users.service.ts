@@ -24,4 +24,8 @@ export class UsersService extends OperationsService<User> {
       select: ['email', 'password'],
     });
   }
+
+  existsByEmail(email: string) {
+    return this.repository.exists({ where: { email } });
+  }
 }

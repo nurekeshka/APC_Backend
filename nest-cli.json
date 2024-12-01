@@ -9,6 +9,11 @@
         "include": "configurations/*.json",
         "outDir": "dist/src/",
         "watchAssets": true
+      },
+      {
+        "include": "common/mailer/templates/*.hbs",
+        "outDir": "dist/src/",
+        "watchAssets": true
       }
     ]
   }

@@ -5,7 +5,6 @@ export interface VerificationParams {
   args: {
     name: string;
     link: string;
-    code: string;
   };
 }
 
