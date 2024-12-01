@@ -10,7 +10,7 @@
       "duration": 30000
     },
     "dropSchema": false,
-    "host": "localhost",
+    "host": "postgres",
     "name": "aitu",
     "password": "root",
     "port": 5432,
@@ -18,10 +18,14 @@
     "type": "postgres",
     "username": "postgres"
   },
-  "redis": {
+  "mailer": {
+    "from": "",
+    "host": "",
     "mock": false,
-    "host": "redis",
-    "port": 6379
+    "password": "",
+    "port": 587,
+    "secure": true,
+    "username": ""
   },
   "pagination": {
     "defaultLimit": 0,
@@ -34,5 +38,10 @@
     "paginationType": "limit",
     "relativePath": false,
     "withDeleted": false
+  },
+  "redis": {
+    "host": "redis",
+    "mock": false,
+    "port": 6379
   }
 }

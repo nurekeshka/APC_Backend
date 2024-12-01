@@ -18,8 +18,14 @@
     "type": "postgres",
     "username": "postgres"
   },
-  "redis": {
-    "mock": true
+  "mailer": {
+    "from": "",
+    "host": "",
+    "mock": true,
+    "password": "",
+    "port": 587,
+    "secure": true,
+    "username": ""
   },
   "pagination": {
     "defaultLimit": 0,
@@ -32,5 +38,8 @@
     "paginationType": "limit",
     "relativePath": false,
     "withDeleted": false
+  },
+  "redis": {
+    "mock": true
   }
 }

@@ -18,7 +18,7 @@
     "type": "sqlite",
     "username": null
   },
-  "redis": {
+  "mailer": {
     "mock": true
   },
   "pagination": {
@@ -32,5 +32,8 @@
     "paginationType": "limit",
     "relativePath": false,
     "withDeleted": false
+  },
+  "redis": {
+    "mock": true
   }
 }

@@ -1,14 +1,21 @@
-import { INestApplication, ValidationPipe } from '@nestjs/common';
+import { INestApplication, Logger, ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import { swagger } from '../../configurations/swagger.json';
-import { ErrorsFilter } from '../../middlewares/filters/errors.filter';
+import { HttpExceptionFilter } from '../../middlewares/filters/http-exception.filter';
 
 export class Bootstrapper {
   static setup(app: INestApplication) {
-    this.setupGlobalFilters(app);
+    this.setupLogger();
     this.setupGlobalPipes(app);
     this.setupSwagger(app);
+  }
+
+  static setupLogger() {
+    const logger = new Logger(Bootstrapper.name);
+    logger.log(
+      `Bootstrapping in ${process.env.NODE_ENV ?? 'development'} mode`,
+    );
   }
 
   static setupGlobalPipes(app: INestApplication) {
@@ -39,6 +46,6 @@ export class Bootstrapper {
   }
 
   static setupGlobalFilters(app: INestApplication) {
-    app.useGlobalFilters(new ErrorsFilter());
+    app.useGlobalFilters(new HttpExceptionFilter());
   }
 }
