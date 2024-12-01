@@ -1,5 +1,6 @@
 import {
   HttpException,
+  HttpStatus,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -41,8 +42,14 @@ export class AuthService {
   async signUp(dto: SignUpDto) {
     if (await this.usersService.existsByEmail(dto.email))
       throw new HttpException(
-        'User with this email address already exists.',
-        400,
+        { message: 'User with this email address already exists.' },
+        HttpStatus.BAD_REQUEST,
+      );
+
+    if (await this.redis.exists(`verification_${dto.email}`))
+      throw new HttpException(
+        { message: 'Verification is already in process' },
+        HttpStatus.BAD_REQUEST,
       );
 
     const code = '123456';
@@ -67,7 +74,10 @@ export class AuthService {
 
   async verify(dto: VerifyDto) {
     if (!(await this.redis.exists(`verification_${dto.email}`)))
-      throw new HttpException('No active verification for that user', 400);
+      throw new HttpException(
+        { message: 'No active verification for that user' },
+        HttpStatus.BAD_REQUEST,
+      );
 
     const data = JSON.parse(
       (await this.redis.get(`verification_${dto.email}`)) as string,
@@ -79,7 +89,10 @@ export class AuthService {
     console.log(code);
 
     if (code !== dto.code)
-      throw new HttpException("Validation code doesn't match", 400);
+      throw new HttpException(
+        { message: "Validation code doesn't match" },
+        HttpStatus.BAD_REQUEST,
+      );
 
     return await this.usersService.create(user);
   }
