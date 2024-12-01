@@ -30,7 +30,7 @@ export class MailerService {
     template: T,
     to: string,
     subject: string,
-    args: TemplateParams,
+    args: TemplateParams<T>,
   ) {
     const builder = this.templates[template];
     await this.transporter.sendMail({
