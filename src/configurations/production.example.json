@@ -18,6 +18,14 @@
     "type": "postgres",
     "username": "postgres"
   },
+  "mailer": {
+    "from": "",
+    "host": "smtp.gmail.com",
+    "password": "",
+    "port": 587,
+    "secure": true,
+    "username": ""
+  },
   "redis": {
     "mock": false,
     "host": "redis",
