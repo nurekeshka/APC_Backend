@@ -6,10 +6,10 @@ import {
 import { JwtService } from '@nestjs/jwt';
 
 import { MailerService } from '../../../common/mailer';
-import { Template } from '../../../common/mailer/mailer.types';
 import { RedisService } from '../../../common/redis';
 import { UsersService } from '../../users/service/users.service';
 import { SignUpDto } from '../dto/sign-up.dto';
+import { VerifyDto } from '../dto/verify.dto';
 
 @Injectable()
 export class AuthService {
@@ -40,22 +40,46 @@ export class AuthService {
   async signUp(dto: SignUpDto) {
     if (await this.usersService.existsByEmail(dto.email))
       throw new HttpException(
-        'Users with this email address already exists.',
+        'User with this email address already exists.',
         400,
       );
 
-    await this.mailer.dispatch(
-      Template.Verification,
-      dto.email,
-      'Your verification code',
-      {
-        name: dto.name,
-        link: `http://localhost:8080/auth/verify?code=${'123456'}`,
-      },
+    const code = '123456';
+
+    // await this.mailer.dispatch(
+    //   Template.Verification,
+    //   dto.email,
+    //   'Your verification code',
+    //   {
+    //     name: dto.name,
+    //     link: `http://localhost:8080/auth/verify?code=${code}`,
+    //   },
+    // );
+
+    await this.redis.set(
+      `verification_${dto.email}`,
+      JSON.stringify({ user: dto, code }),
     );
 
-    await this.redis.set(`verification_${dto.email}`, JSON.stringify(dto));
-
     return { message: 'Sent' };
+  }
+
+  async verify(dto: VerifyDto) {
+    if (!(await this.redis.exists(`verification_${dto.email}`)))
+      throw new HttpException('No active verification for that user', 400);
+
+    const data = JSON.parse(
+      (await this.redis.get(`verification_${dto.email}`)) as string,
+    );
+    const user = data.user as SignUpDto;
+    const code = data.code as string;
+
+    console.log(user);
+    console.log(code);
+
+    if (code !== dto.code)
+      throw new HttpException("Validation code doesn't match", 400);
+
+    return await this.usersService.create(user);
   }
 }

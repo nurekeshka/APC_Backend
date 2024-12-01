@@ -10,6 +10,7 @@ import { ApiTags } from '@nestjs/swagger';
 
 import { SignInDto } from '../dto/sign-in.dto';
 import { SignUpDto } from '../dto/sign-up.dto';
+import { VerifyDto } from '../dto/verify.dto';
 import { AuthGuard } from '../guards/auth.guard';
 import { AuthService } from '../service/auth.service';
 
@@ -26,6 +27,11 @@ export class AuthController {
   @Post('sign-up')
   signUp(@Body() dto: SignUpDto) {
     return this.auth.signUp(dto);
+  }
+
+  @Post('verify')
+  verify(@Body() dto: VerifyDto) {
+    return this.auth.verify(dto);
   }
 
   @Get('profile')
