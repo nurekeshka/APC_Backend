@@ -10,7 +10,7 @@
       "duration": 30000
     },
     "dropSchema": false,
-    "host": "localhost",
+    "host": "postgres",
     "name": "aitu",
     "password": "root",
     "port": 5432,
@@ -20,7 +20,7 @@
   },
   "mailer": {
     "from": "",
-    "host": "smtp.gmail.com",
+    "host": "",
     "mock": false,
     "password": "",
     "port": 587,
