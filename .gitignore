@@ -59,4 +59,4 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 production.json
 
 # Local Development Setup
-local-development.json
+local.json
