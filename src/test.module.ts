@@ -1,38 +1,24 @@
-import fs from 'fs';
-import path from 'path';
-
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { DatabaseTypeOptions } from './app.module';
+import { Bootstrapper } from './common/bootstrapper/bootstrapper.service';
+import { GuardianService } from './common/guardian';
 import { PaginationService } from './common/pagination/pagination.service';
-import { database } from './configurations/test.json';
-import { entities } from './modules';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      load: [
-        () => {
-          const configurationPath = path.resolve(
-            __dirname,
-            'configurations/test.json',
-          );
-          return JSON.parse(fs.readFileSync(configurationPath, 'utf8'));
-        },
-      ],
+      load: [Bootstrapper.setupConfiguration],
       isGlobal: true,
     }),
-    TypeOrmModule.forRoot({
-      type: database.type as DatabaseTypeOptions,
-      database: database.name,
-      dropSchema: database.dropSchema,
-      synchronize: database.synchronize,
-      entities,
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: Bootstrapper.setupTestDatabase,
     }),
   ],
-  providers: [PaginationService],
-  exports: [PaginationService],
+  providers: [PaginationService, GuardianService],
+  exports: [PaginationService, GuardianService],
 })
 export class TestAppModule {}

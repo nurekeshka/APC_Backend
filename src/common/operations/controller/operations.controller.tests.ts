@@ -3,6 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import { OperationsServiceMockFactory } from '../../../../test/utils/operations.service.mock';
 import { ValidationServiceMockFactory } from '../../../../test/utils/validation.service.mock';
+import { GuardianService } from '../../guardian';
 import { ValidationService } from '../../validation';
 import { OperationsService } from '../service/operations.service';
 
@@ -20,6 +21,7 @@ export const OperationsControllerTestsFactory = <T extends Type>(
       const module: TestingModule = await Test.createTestingModule({
         controllers: [ControllerClass],
         providers: [
+          GuardianService,
           {
             provide: ServiceClass,
             useValue: OperationsServiceMockFactory(),
