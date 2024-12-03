@@ -21,7 +21,7 @@ export class UsersService extends OperationsService<User> {
   findOneForAuth(email: string) {
     return this.repository.findOne({
       where: { email },
-      select: ['email', 'password'],
+      select: ['id', 'email', 'password'],
     });
   }
 
