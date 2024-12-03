@@ -54,7 +54,7 @@ export class AuthService {
         HttpStatus.BAD_REQUEST,
       );
 
-    const code = Math.floor(Math.random() * 1_000_000) - 1;
+    const code = (Math.floor(Math.random() * 1_000_000) - 1).toString();
 
     await this.mailer.dispatch(
       Template.Verification,
