@@ -25,7 +25,7 @@ export class Bootstrapper {
 
   static setupLogger() {
     const logger = new Logger(Bootstrapper.name);
-    logger.log(`Bootstrapping in ${this.environment} mode`);
+    logger.log(`Bootstrapping in ${Bootstrapper.environment} mode`);
   }
 
   static setupGlobalPipes(app: INestApplication) {
@@ -60,12 +60,24 @@ export class Bootstrapper {
   }
 
   static setupConfiguration() {
-    const env = process.env.NODE_ENV ?? 'development';
-    const configurationPath = path.resolve(
-      __dirname,
-      `../../configurations/${env}.json`,
+    if (Bootstrapper.environment === 'development') {
+      const path = Bootstrapper.resolveConfiguration('local');
+      if (fs.existsSync(path)) return Bootstrapper.retrieveJSON(path);
+    }
+
+    const filepath = Bootstrapper.resolveConfiguration(
+      Bootstrapper.environment,
     );
-    return JSON.parse(fs.readFileSync(configurationPath, 'utf8'));
+
+    return Bootstrapper.retrieveJSON(filepath);
+  }
+
+  static retrieveJSON(filepath: string) {
+    return JSON.parse(fs.readFileSync(filepath, 'utf-8'));
+  }
+
+  static resolveConfiguration(name: string) {
+    return path.resolve(__dirname, `../../configurations/${name}.json`);
   }
 
   static setupDatabase(config: ConfigService): TypeOrmModuleOptions {
