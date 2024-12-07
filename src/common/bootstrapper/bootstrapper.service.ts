@@ -17,6 +17,16 @@ export class Bootstrapper {
     this.setupLogger();
     this.setupGlobalPipes(app);
     this.setupSwagger(app);
+    this.setupCors(app);
+  }
+
+  static setupCors(app: INestApplication) {
+    app.enableCors({
+      origin: 'http://localhost:4200',
+      methods: 'GET,POST,PUT,DELETE',
+      allowedHeaders: 'Content-Type, Authorization',
+      credentials: true,
+    });
   }
 
   static get environment(): string {
