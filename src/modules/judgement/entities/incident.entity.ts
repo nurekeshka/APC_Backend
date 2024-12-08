@@ -3,16 +3,22 @@ import { Entity, Column, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Conclusion } from './conclusion.entity';
 
 @Entity()
-export class Defender {
+export class Incident {
   @PrimaryGeneratedColumn('uuid')
   id: string;
-
-  @Column({ unique: true })
-  iin: string;
 
   @ManyToOne(() => Conclusion)
   conclusion: Conclusion;
 
+  @Column({ type: 'date' })
+  registrationDate: string;
+
   @Column()
-  name: string;
+  article: string;
+
+  @Column()
+  solution: string;
+
+  @Column()
+  description: string;
 }

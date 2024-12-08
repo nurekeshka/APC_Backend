@@ -9,7 +9,7 @@ import {
 
 import { RoleEnum, SexEnum } from '../enums/users.enums';
 
-export class CreateUserDTO {
+export class CreateUserDto {
   @ApiProperty({ example: 'example@api.com' })
   @IsEmail()
   email: string;

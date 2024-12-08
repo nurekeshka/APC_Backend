@@ -1,8 +1,13 @@
-import { ApprovalProcess } from "./ApprovalProcess.entity";
-import { Called } from "./Called.entity";
-import { CaseRecords } from "./CaseRecords.entity";
-import { Conclusion } from "./conclusion.entity";
-import { Defender } from "./Defender.entity";
+import { Approval } from './approval.entity';
+import { Called } from './called.entity';
+import { Incident } from './incident.entity';
+import { Conclusion } from './conclusion.entity';
+import { Defender } from './defender.entity';
 
-
-export const JudgementEntities = [Conclusion, ApprovalProcess, Called, CaseRecords, Defender];
+export const JudgementEntities = [
+  Conclusion,
+  Approval,
+  Called,
+  Incident,
+  Defender,
+];

@@ -1,4 +1,4 @@
-import { CreatorDATA } from './CreatorData.entity';
+import { Employee } from './employee.entity';
 import { User } from './user.entity';
 
-export const UserEntities = [User, CreatorDATA];
+export const UserEntities = [User, Employee];

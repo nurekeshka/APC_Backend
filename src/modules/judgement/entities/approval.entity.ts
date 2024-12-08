@@ -3,7 +3,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { Conclusion } from './conclusion.entity';
 
 @Entity()
-export class Called {
+export class Approval {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -11,32 +11,17 @@ export class Called {
   conclusion: Conclusion;
 
   @Column()
-  iin: string;
+  position: string;
 
   @Column()
   name: string;
 
   @Column()
-  pensionIin: string;
-
-  @Column()
-  workplace: string;
-
-  @Column()
-  lastCall: string;
-
-  @Column()
-  caller: string;
-
-  @Column()
   status: string;
 
-  @Column({ type: 'timestamptz' })
-  arrivedAt: Date;
-
-  @Column({ type: 'timestamptz' })
-  leftAt: Date;
+  @Column({ type: 'date' })
+  date: string;
 
   @Column()
-  reason: string;
+  rejectionReason: string;
 }

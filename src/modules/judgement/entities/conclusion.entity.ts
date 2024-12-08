@@ -1,46 +1,63 @@
-import { Entity, PrimaryColumn, Column } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+
+import { Approval } from './approval.entity';
+import { Called } from './called.entity';
+import { Defender } from './defender.entity';
+import { Incident } from './incident.entity';
 
 @Entity()
 export class Conclusion {
-  @PrimaryColumn('varchar', { length: 50 })
-  ConclusionID: string;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-  @Column('timestamp')
-  registrationDate: Date;
+  @Column({ type: 'date' })
+  registrationDate: string;
 
-  @Column('varchar', { length: 255 })
+  @Column()
   position: string;
 
-  @Column('varchar', { length: 50 })
+  @Column()
   region: string;
 
-  @Column('text')
+  @Column()
   plannedActions: string;
 
-  @Column('timestamp')
-  eventDate: Date;
+  @Column({ type: 'date' })
+  eventDate: string;
 
-  @Column('varchar', { length: 100 })
+  @Column()
   eventPlace: string;
 
-  @Column('varchar', { length: 255 })
+  @Column()
   investigator: string;
 
-  @Column('varchar', { length: 100 })
+  @Column()
   status: string;
 
-  @Column('text')
+  @Column()
   eventRelation: string;
 
-  @Column('varchar', { length: 255 })
+  @Column()
   investigationType: string;
 
-  @Column('boolean')
+  @Column()
   isBusinessRelated: boolean;
 
-  @Column('text')
+  @Column()
   justification: string;
 
-  @Column('text')
+  @Column()
   actionResult: string;
+
+  @OneToMany(() => Approval, (approval) => approval.conclusion)
+  approvals: Approval[];
+
+  @OneToMany(() => Called, (called) => called.conclusion)
+  called: Called[];
+
+  @OneToMany(() => Incident, (incident) => incident.conclusion)
+  incident: Incident[];
+
+  @OneToMany(() => Defender, (defender) => defender.conclusion)
+  defender: Defender[];
 }
