@@ -1,13 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { Column } from 'nestjs-paginate/lib/helper';
 
+import { OperationsDtos } from '../../../common/operations/decorators/operations.dtos.decorator';
 import { OperationsEntity } from '../../../common/operations/decorators/operations.entity.decorator';
 import { OperationsService } from '../../../common/operations/service/operations.service';
+import { CreateUserDto } from '../dto/create-user.dto';
+import { UpdateUserDTO } from '../dto/update-user.dto';
 import { User } from '../entities/user.entity';
 
 @Injectable()
 @OperationsEntity({ entity: User })
-export class UsersService extends OperationsService<User> {
+@OperationsDtos({ create: CreateUserDto, update: UpdateUserDTO })
+export class UsersService extends OperationsService<User, CreateUserDto> {
   sortableColumns = [
     'email',
     'name',

@@ -11,11 +11,11 @@ import { OperationsController } from './operations.controller';
 
 export const OperationsControllerTestsFactory = <T extends Type>(
   ControllerClass: Type<OperationsController<InstanceType<T>, any>>,
-  ServiceClass: Type<OperationsService<InstanceType<T>>>,
+  ServiceClass: Type<OperationsService<InstanceType<T>, never>>,
 ) => {
   describe(`${ControllerClass.name}`, () => {
     let controller: OperationsController<InstanceType<T>, any>;
-    let service: OperationsService<T>;
+    let service: OperationsService<T, never>;
 
     beforeAll(async () => {
       const module: TestingModule = await Test.createTestingModule({

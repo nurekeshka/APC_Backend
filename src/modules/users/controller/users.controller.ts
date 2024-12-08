@@ -5,20 +5,20 @@ import { DevelopmentModeOnly } from '../../../common/bootstrapper/guards/develop
 import { OperationsController } from '../../../common/operations/controller/operations.controller';
 import { OperationsDtos } from '../../../common/operations/decorators/operations.dtos.decorator';
 import { OperationsGuards } from '../../../common/operations/decorators/operations.guards.decorator';
-import { CreateUserDTO } from '../dto/create-user.dto';
+import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDTO } from '../dto/update-user.dto';
 import { User } from '../entities/user.entity';
 import { UsersService } from '../service/users.service';
 
 @ApiTags('Users Controller')
 @Controller('users')
-@OperationsDtos({ create: CreateUserDTO, update: UpdateUserDTO })
+@OperationsDtos({ create: CreateUserDto, update: UpdateUserDTO })
 @OperationsGuards({
   create: [DevelopmentModeOnly],
   update: [DevelopmentModeOnly],
   delete: [DevelopmentModeOnly],
 })
-export class UsersController extends OperationsController<User, CreateUserDTO> {
+export class UsersController extends OperationsController<User, CreateUserDto> {
   @Inject(UsersService)
   service: UsersService;
 }

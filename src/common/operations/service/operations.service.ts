@@ -6,14 +6,22 @@ import { Repository, DataSource, FindOptionsRelations } from 'typeorm';
 
 import { PaginationService } from '../../pagination';
 import {
+  OperationsDtosParams,
+  OperationsDtosParamsTitle,
+} from '../decorators/operations.dtos.decorator';
+import {
   OperationsEntityParams,
   OperationsEntityParamsTitle,
 } from '../decorators/operations.entity.decorator';
 
 @Injectable()
-export abstract class OperationsService<T> implements OnModuleInit {
+export abstract class OperationsService<T, D extends object>
+  implements OnModuleInit
+{
   abstract sortableColumns: Column<T>[];
   relations: FindOptionsRelations<T> | RelationColumn<T>[] = [];
+
+  private dtos: OperationsDtosParams<D, Partial<D>>;
 
   protected repository: Repository<T>;
 
@@ -24,20 +32,31 @@ export abstract class OperationsService<T> implements OnModuleInit {
   ) {}
 
   onModuleInit() {
-    const params = this.reflector.get<OperationsEntityParams>(
+    const entities = this.reflector.get<OperationsEntityParams>(
       OperationsEntityParamsTitle,
       this.constructor,
     );
 
-    if (params) {
-      const { entity } = params;
+    if (entities) {
+      const { entity } = entities;
       this.repository = this.dataSource.getRepository<T>(entity);
     } else {
       throw new Error('Entity metadata not found.');
     }
+
+    const dtos = this.reflector.get(
+      OperationsDtosParamsTitle,
+      this.constructor,
+    );
+
+    if (dtos) {
+      this.dtos = dtos;
+    } else {
+      throw new Error('Data transfer objects metadata not found.');
+    }
   }
 
-  create<D>(dto: D): Promise<T> {
+  create(dto: typeof this.dtos.create): Promise<T> {
     const entity = this.repository.create(dto as never) as T;
     return this.repository.save(entity);
   }
@@ -56,12 +75,15 @@ export abstract class OperationsService<T> implements OnModuleInit {
     } as any);
   }
 
-  async update<D>(id: string, dto: D): Promise<T> {
+  async update(
+    id: string,
+    dto: typeof this.dtos.update,
+  ): Promise<T | undefined> {
     await this.repository.update(id, dto as never);
     return this.findOne(id);
   }
 
-  async remove(id: string): Promise<T> {
+  async remove(id: string): Promise<T | undefined> {
     const entity = await this.findOne(id);
     await this.repository.delete(id);
     return entity;
