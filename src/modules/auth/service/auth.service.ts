@@ -15,6 +15,13 @@ import { VerifyDto } from '../dto/verify.dto';
 
 const prefix = 'verification_';
 
+export interface UserInterface {
+  sub: string;
+  email: string;
+  iat: number;
+  exp: number;
+}
+
 @Injectable()
 export class AuthService {
   constructor(
@@ -71,7 +78,7 @@ export class AuthService {
       JSON.stringify({ user: dto, code }),
     );
 
-    return { message: 'Sent' };
+    return { message: 'Verification code was sent to your email' };
   }
 
   async verify(dto: VerifyDto) {
@@ -92,5 +99,10 @@ export class AuthService {
       );
 
     return await this.usersService.create(data.user);
+  }
+
+  async profile(user: UserInterface) {
+    const sub = user.sub;
+    return { profile: await this.usersService.findOne(sub), jwt: user };
   }
 }
