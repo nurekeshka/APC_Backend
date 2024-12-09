@@ -1,15 +1,11 @@
-import {
-  IsString
-} from "class-validator";
-
-import { Conclusion } from '../entities/conclusion.entity';
+import { IsString, IsUUID } from 'class-validator';
 
 export class DefenderDto {
+  @IsUUID()
+  conclusion: string;
 
   @IsString()
   iin: string;
-
-  conclusion: Conclusion;
 
   @IsString()
   name: string;

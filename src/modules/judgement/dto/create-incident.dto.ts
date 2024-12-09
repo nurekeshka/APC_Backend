@@ -1,12 +1,8 @@
-import{
-  IsString,
-} from "class-validator";
-
-import { Conclusion } from '../entities/conclusion.entity';
+import { IsString, IsUUID } from 'class-validator';
 
 export class CreateIncidentDto {
-
-  conclusion: Conclusion;
+  @IsUUID()
+  conclusion: string;
 
   @IsString()
   registrationDate: string;

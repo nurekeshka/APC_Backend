@@ -1,28 +1,21 @@
-import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsString,
-} from "class-validator";
-
-import { Conclusion } from '../entities/conclusion.entity';
+import { IsString, IsUUID } from 'class-validator';
 
 export class CreateApprovalDto {
-  conclusion: Conclusion;
+  @IsUUID()
+  conclusion: string;
 
-  @ApiProperty({example : ""})
   @IsString()
   position: string;
-  
-  @ApiProperty({example : "John"})
+
   @IsString()
   name: string;
-  
-  @ApiProperty({example : "Согласовано"})
+
   @IsString()
   status: string;
 
   @IsString()
   date: string;
-  
+
   @IsString()
   rejectionReason: string;
 }

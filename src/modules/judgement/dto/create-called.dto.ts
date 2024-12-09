@@ -1,21 +1,12 @@
-import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsString,
-  IsNotEmpty
-} from "class-validator";
-
-import { Conclusion } from '../entities/conclusion.entity';
+import { IsString, IsDateString, IsUUID } from 'class-validator';
 
 export class CalledDto {
+  @IsUUID()
+  conclusion: string;
 
-  
-  conclusion: Conclusion;
-
-  @ApiProperty({example: '010203441570'})
   @IsString()
   iin: string;
 
-  @ApiProperty({example: 'John'})
   @IsString()
   name: string;
 
@@ -34,11 +25,10 @@ export class CalledDto {
   @IsString()
   status: string;
 
-  //Дата как строка
-  @IsString()
+  @IsDateString()
   arrivedAt: string;
-  //Дата как строка
-  @IsString()
+
+  @IsDateString()
   leftAt: string;
 
   @IsString()
