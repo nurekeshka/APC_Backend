@@ -1,8 +1,8 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 import { Approval } from './approval.entity';
-import { Called } from './called.entity';
-import { Defender } from './defender.entity';
+import { Called } from './temp/called.entity';
+import { Defender } from './temp/defender.entity';
 import { Incident } from './incident.entity';
 
 @Entity()
