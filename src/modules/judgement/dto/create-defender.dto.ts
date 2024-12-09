@@ -1,6 +1,6 @@
 import { IsString, IsUUID } from 'class-validator';
 
-export class DefenderDto {
+export class CreateDefenderDto {
   @IsUUID()
   conclusion: string;
 

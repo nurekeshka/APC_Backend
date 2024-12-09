@@ -1,6 +1,6 @@
 import { IsString, IsDateString, IsUUID } from 'class-validator';
 
-export class CalledDto {
+export class CreateCalledDto {
   @IsUUID()
   conclusion: string;
 
