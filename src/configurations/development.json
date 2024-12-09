@@ -12,8 +12,8 @@
     "dropSchema": false,
     "host": "localhost",
     "name": "aitu",
-    "password": "root",
-    "port": 5432,
+    "password": "postgres",
+    "port": 5433,
     "synchronize": true,
     "type": "postgres",
     "username": "postgres"
