@@ -5,12 +5,12 @@ import { OperationsDtos } from '../../../common/operations/decorators/operations
 import { OperationsEntity } from '../../../common/operations/decorators/operations.entity.decorator';
 import { OperationsService } from '../../../common/operations/service/operations.service';
 import { CreateUserDto } from '../dto/create-user.dto';
-import { UpdateUserDTO } from '../dto/update-user.dto';
+import { UpdateUserDto } from '../dto/update-user.dto';
 import { User } from '../entities/user.entity';
 
 @Injectable()
 @OperationsEntity({ entity: User })
-@OperationsDtos({ create: CreateUserDto, update: UpdateUserDTO })
+@OperationsDtos({ create: CreateUserDto, update: UpdateUserDto })
 export class UsersService extends OperationsService<User, CreateUserDto> {
   sortableColumns = [
     'email',
