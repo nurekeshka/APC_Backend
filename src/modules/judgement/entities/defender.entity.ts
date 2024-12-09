@@ -1,6 +1,6 @@
 import { Entity, Column, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
-import { Conclusion } from '../conclusion.entity';
+import { Conclusion } from './conclusion.entity';
 
 @Entity()
 export class Defender {

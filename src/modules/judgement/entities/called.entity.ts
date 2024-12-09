@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 
-import { Conclusion } from '../conclusion.entity';
+import { Conclusion } from './conclusion.entity';
 
 @Entity()
 export class Called {
