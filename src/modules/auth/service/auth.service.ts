@@ -25,8 +25,8 @@ export interface UserInterface {
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly usersService: UsersService,
-    private readonly jwtService: JwtService,
+    private readonly users: UsersService,
+    private readonly jwt: JwtService,
     private readonly redis: RedisService,
     private readonly mailer: MailerService,
   ) {}
@@ -35,7 +35,7 @@ export class AuthService {
     email: string,
     password: string,
   ): Promise<{ access_token: string }> {
-    const user = await this.usersService.findOneForAuth(email);
+    const user = await this.users.findOneForAuth(email);
 
     if (user?.password !== password) {
       throw new UnauthorizedException();
@@ -44,12 +44,12 @@ export class AuthService {
     const payload = { sub: user.id, email: user.email };
 
     return {
-      access_token: await this.jwtService.signAsync(payload),
+      access_token: await this.jwt.signAsync(payload),
     };
   }
 
   async signUp(dto: SignUpDto) {
-    if (await this.usersService.existsByEmail(dto.email))
+    if (await this.users.existsByEmail(dto.email))
       throw new HttpException(
         { message: 'User with this email address already exists.' },
         HttpStatus.BAD_REQUEST,
@@ -98,11 +98,11 @@ export class AuthService {
         HttpStatus.BAD_REQUEST,
       );
 
-    return await this.usersService.create(data.user);
+    return await this.users.create(data.user);
   }
 
   async profile(user: UserInterface) {
     const sub = user.sub;
-    return { profile: await this.usersService.findOne(sub), jwt: user };
+    return { profile: await this.users.findOne(sub), jwt: user };
   }
 }

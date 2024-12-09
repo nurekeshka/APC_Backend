@@ -9,10 +9,10 @@ import { OperationsService } from '../service/operations.service';
 
 export const OperationsServiceTestsFactory = <T extends Type>(
   entity: T,
-  ServiceClass: Type<OperationsService<InstanceType<T>>>,
+  ServiceClass: Type<OperationsService<InstanceType<T>, never>>,
 ) => {
   describe(`${ServiceClass.name}`, () => {
-    let service: OperationsService<T>;
+    let service: OperationsService<T, never>;
     let pagination: PaginationService;
     let repository: Repository<T>;
     let dataSource: DataSource;
@@ -47,7 +47,7 @@ export const OperationsServiceTestsFactory = <T extends Type>(
     });
 
     it('should call repository.save when creating an entity', async () => {
-      await service.create({});
+      await service.create({} as never);
       expect(repository.save).toHaveBeenCalled();
     });
 
@@ -62,7 +62,7 @@ export const OperationsServiceTestsFactory = <T extends Type>(
     });
 
     it('should call repository.update when updating an entity', async () => {
-      await service.update('', {});
+      await service.update('', {} as never);
       expect(repository.update).toHaveBeenCalled();
     });
 

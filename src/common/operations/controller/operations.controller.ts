@@ -35,7 +35,8 @@ export abstract class OperationsController<T, D extends object>
     update: [],
     delete: [],
   };
-  abstract service: OperationsService<T>;
+
+  abstract service: OperationsService<T, D>;
 
   constructor(
     private readonly reflector: Reflector,
