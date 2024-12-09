@@ -5,20 +5,23 @@ import { DevelopmentModeOnly } from '../../../common/bootstrapper/guards/develop
 import { OperationsController } from '../../../common/operations/controller/operations.controller';
 import { OperationsDtos } from '../../../common/operations/decorators/operations.dtos.decorator';
 import { OperationsGuards } from '../../../common/operations/decorators/operations.guards.decorator';
-import { CreateUserDto } from '../dto/create-user.dto';
-import { UpdateUserDto } from '../dto/update-user.dto';
-import { User } from '../entities/user.entity';
-import { UsersService } from '../service/users.service';
+import { CreateEmployeeDto } from '../dto/create-employee.dto';
+import { UpdateEmployeeDto } from '../dto/update-employee.dto';
+import { Employee } from '../entities/employee.entity';
+import { EmployeeService } from '../service/employee.service';
 
-@ApiTags('Users Controller')
-@Controller('users')
-@OperationsDtos({ create: CreateUserDto, update: UpdateUserDto })
+@ApiTags('Employee Controller')
+@Controller('employees')
+@OperationsDtos({ create: CreateEmployeeDto, update: UpdateEmployeeDto })
 @OperationsGuards({
   create: [DevelopmentModeOnly],
   update: [DevelopmentModeOnly],
   delete: [DevelopmentModeOnly],
 })
-export class UsersController extends OperationsController<User, CreateUserDto> {
-  @Inject(UsersService)
-  service: UsersService;
+export class EmployeeController extends OperationsController<
+  Employee,
+  CreateEmployeeDto
+> {
+  @Inject(EmployeeService)
+  service: EmployeeService;
 }
